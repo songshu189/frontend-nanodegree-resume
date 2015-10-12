@@ -145,3 +145,77 @@ projects.display = function() {
 };
 
 projects.display();
+
+var education = {
+	"schools": [
+	  {
+		"name": "University of Boston",
+		"location": "Boston, MA",
+		"degree": "Bachelor",
+		"majors": ["Computer Engineering"],
+		"dates": "2006-2010",
+		"url": "http://www.bu.edu"
+	  },{
+	  	"name": "New York Univeristy",
+		"location": "New York, NY",
+		"degree": "Master",
+		"majors": ["Software Engineering"],
+		"dates": "2010-2012",
+		"url": "http://www.nyu.edu"
+	  }],
+	"onlineCourses": [
+	  {
+		"title": "Web Design",
+		"school": "Udacity",
+		"dates": "2013",
+		"url": "https://www.udacity.com"
+	  },{
+		"title": "Statistics",
+		"school": "UMA",
+		"dates": "2013",
+		"url": "https://www.uma.edu"
+	  }
+	]
+};
+
+education.display = function() {
+    for(var idx in this.schools) {
+    	var school = this.schools[idx];
+
+    	$("#education").append(HTMLschoolStart);
+
+		$(".education-entry:last").append(
+			  substitute(HTMLschoolName, school.name)
+			+ substitute(HTMLschoolDegree, school.degree)
+			+ substitute(HTMLschoolDates, school.dates)
+			+ substitute(HTMLschoolLocation, school.location)
+			);
+
+		$(".education-entry:last a").attr("href", school.url);
+
+		for(var major in school.majors) {
+			$(".education-entry:last").append(
+				substitute(HTMLschoolMajor, school.majors[major])
+				);
+		}
+    }
+
+    if (this.onlineCourses) {
+    	$("#education").append(HTMLonlineClasses);
+    }
+
+    for(var idx in this.onlineCourses) {
+    	var course = this.onlineCourses[idx];
+
+		$("#education").append(HTMLschoolStart);
+
+		$(".education-entry:last").append(
+			  substitute(HTMLonlineTitle, course.title)
+			+ substitute(HTMLonlineSchool, course.school)
+			+ substitute(HTMLonlineDates, course.dates)
+			+ substitute(HTMLonlineURL, course.url)
+			);
+    }
+};
+
+education.display();
