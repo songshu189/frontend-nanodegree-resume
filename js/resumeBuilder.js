@@ -111,3 +111,37 @@ var inName = function() {
 };
 
 $("#main").append(internationalizeButton);
+
+var projects = {
+	"projects": [{
+		"title": "appify",
+		"dates": "2008-2009",
+		"description": "This is description of appify",
+		"images":"images/appify.jpg"
+	},{
+		"title": "sunflower",
+		"dates": "2010-2012",
+		"description": "This is description of sunflower",
+		"images":"images/sunflower.jpg"
+	}, {
+		"title": "bokeh",
+		"dates": "2012-13",
+		"description": "This is description of bokeh",
+		"images":"images/bokeh.jpg"
+	}]
+};
+
+projects.display = function() {
+	for(var idx in this.projects) {
+		var project = this.projects[idx];
+
+		$("#projects").append(HTMLprojectStart);
+		var formattedTitle = substitute(HTMLprojectTitle, project.title);
+		var formattedDates = substitute(HTMLprojectDates, project.dates);
+		var formattedDescription = substitute(HTMLprojectDescription, project.description);
+		var formattedImage = substitute(HTMLprojectImage, project.images);
+		$(".project-entry:last").append( formattedTitle + formattedDates + formattedDescription + formattedImage);
+	}
+};
+
+projects.display();
