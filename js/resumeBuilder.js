@@ -4,8 +4,6 @@ This is empty on purpose! Your code to build the resume will go here.
 var name = "Sonny Yue";
 var role = "Web developer";
 
-
-
 var formattedName = HTMLheaderName.replace("%data%", name);
 var formattedRole = HTMLheaderRole.replace("%data%", role);
 
@@ -75,8 +73,8 @@ var work = {
 	}]
 };
 
-var displayWork = function(work) {
-	for(var job in work.jobs) {
+work.display = function() {
+	for(var job in this.jobs) {
 		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = substitute(HTMLworkEmployer, work.jobs[job].employer);
 		var formattedTitle = substitute(HTMLworkTitle, work.jobs[job].title);
@@ -87,7 +85,7 @@ var displayWork = function(work) {
 	}
 };
 
-displayWork(work);
+work.display();
 
 $(document).click(function(loc) {
 	console.log(loc.pageX + "  " + loc.pageY);
