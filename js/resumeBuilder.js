@@ -13,24 +13,27 @@ $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
 
 var contactInfo = {
-	"mobile" : [HTMLmobile,"(123)456-0789"],
-	"email" : [HTMLemail, "sonny.yue@gmail.com"],
-	"twitter" : [HTMLtwitter, ""],
-	"github"  : [HTMLgithub, "https://github.com/sonny189"],
-	"blog"  : [HTMLblog, ""],
-	"location" : [HTMLlocation, "Burlington, MA"]
+	"mobile" :
+	    "(123)456-0789",
+	"email" :
+	    "sonny.yue@gmail.com",
+	"github"  :
+	    "https://github.com/sonny189",
+	"twitter" :
+	    "",
+	"location" :
+	    "Burlington, MA"
 };
 
 var substitute = function(html, str) {
     return html.replace("%data%", str);
 }
 
-for (var key in contactInfo) {
-	var val = contactInfo[key];
-	if(val[1]) {
-		$("#topContacts").append(substitute(val[0], val[1]));
-	}
-}
+$("#topContacts").append(substitute(HTMLmobile, contactInfo.mobile));
+$("#topContacts").append(substitute(HTMLemail, contactInfo.email));
+$("#topContacts").append(substitute(HTMLgithub, contactInfo.github));
+$("#topContacts").append(substitute(HTMLtwitter, contactInfo.twitter));
+$("#topContacts").append(substitute(HTMLlocation, contactInfo.location));
 
 var skills = ["javascript", "java", "c++", "python", "php"];
 
@@ -38,13 +41,15 @@ var bio = {
 	"name" : name,
 	"role" : role,
 	"contacts" : contactInfo,
-	"pictureURL" : "images/my-photo.jpg",
-	"welcoemMsg" : "welcome you",
-	"skills" : skills
+	"welcomeMessage" :
+	 	"welcome you",
+	"skills" : skills,
+	"biopic" :
+		"images/my-photo.jpg",
 };
 
-$("#header").append(substitute(HTMLbioPic, bio.pictureURL));
-$("#header").append(substitute(HTMLwelcomeMsg, bio.welcoemMsg));
+$("#header").append(substitute(HTMLbioPic, bio.biopic));
+$("#header").append(substitute(HTMLwelcomeMsg, bio.welcomeMessage));
 
 if(bio.skills) {
 	$("#header").append(HTMLskillsStart);
@@ -167,12 +172,12 @@ var education = {
 	  {
 		"title": "Web Design",
 		"school": "Udacity",
-		"dates": "2013",
+		"date": "2013",
 		"url": "https://www.udacity.com"
 	  },{
 		"title": "Statistics",
 		"school": "UMA",
-		"dates": "2013",
+		"date": "2013",
 		"url": "https://www.uma.edu"
 	  }
 	]
@@ -212,7 +217,7 @@ education.display = function() {
 		$(".education-entry:last").append(
 			  substitute(HTMLonlineTitle, course.title)
 			+ substitute(HTMLonlineSchool, course.school)
-			+ substitute(HTMLonlineDates, course.dates)
+			+ substitute(HTMLonlineDates, course.date)
 			+ substitute(HTMLonlineURL, course.url)
 			);
     }
