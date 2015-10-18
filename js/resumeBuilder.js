@@ -4,32 +4,21 @@ This is empty on purpose! Your code to build the resume will go here.
 var name = "Sonny Yue";
 var role = "Web developer";
 
-
-
-var formattedName = HTMLheaderName.replace("%data%", name);
-var formattedRole = HTMLheaderRole.replace("%data%", role);
-
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-
 var contactInfo = {
-	"mobile" : [HTMLmobile,"(123)456-0789"],
-	"email" : [HTMLemail, "sonny.yue@gmail.com"],
-	"twitter" : [HTMLtwitter, ""],
-	"github"  : [HTMLgithub, "https://github.com/sonny189"],
-	"blog"  : [HTMLblog, ""],
-	"location" : [HTMLlocation, "Burlington, MA"]
+	"mobile" :
+	    "(123)456-0789",
+	"email" :
+	    "sonny.yue@gmail.com",
+	"github"  :
+	    "https://github.com/sonny189",
+	"twitter" :
+	    "",
+	"location" :
+	    "Burlington, MA"
 };
 
 var substitute = function(html, str) {
     return html.replace("%data%", str);
-}
-
-for (var key in contactInfo) {
-	var val = contactInfo[key];
-	if(val[1]) {
-		$("#topContacts").append(substitute(val[0], val[1]));
-	}
 }
 
 var skills = ["javascript", "java", "c++", "python", "php"];
@@ -38,21 +27,37 @@ var bio = {
 	"name" : name,
 	"role" : role,
 	"contacts" : contactInfo,
-	"pictureURL" : "images/my-photo.jpg",
-	"welcoemMsg" : "welcome you",
-	"skills" : skills
+	"welcomeMessage" :
+	 	"welcome you",
+	"skills" : skills,
+	"biopic" :
+		"images/my-photo.jpg",
 };
 
-$("#header").append(substitute(HTMLbioPic, bio.pictureURL));
-$("#header").append(substitute(HTMLwelcomeMsg, bio.welcoemMsg));
+bio.display = function() {
+	$("#header").prepend(substitute(HTMLheaderRole, this.role));
+	$("#header").prepend(substitute(HTMLheaderName, this.name));
 
-if(bio.skills) {
-	$("#header").append(HTMLskillsStart);
+	$("#topContacts").append(substitute(HTMLmobile, this.contacts.mobile));
+	$("#topContacts").append(substitute(HTMLemail, this.contacts.email));
+	$("#topContacts").append(substitute(HTMLgithub, this.contacts.github));
+	$("#topContacts").append(substitute(HTMLtwitter, this.contacts.twitter));
+	$("#topContacts").append(substitute(HTMLlocation, this.contacts.location));
 
-	for(var i=0; i<skills.length; i++) {
-		$("#skills").append(substitute(HTMLskills, bio.skills[i]));
+	$("#header").append(substitute(HTMLbioPic, this.biopic));
+	$("#header").append(substitute(HTMLwelcomeMsg, this.welcomeMessage));
+
+	if(this.skills) {
+		$("#header").append(HTMLskillsStart);
+
+		for(var i=0; i<this.skills.length; i++) {
+			$("#skills").append(substitute(HTMLskills, this.skills[i]));
+		}
 	}
-}
+
+};
+
+bio.display();
 
 var work = {
 	"jobs": [{
@@ -70,8 +75,8 @@ var work = {
 	}]
 };
 
-var displayWork = function(work) {
-	for(var job in work.jobs) {
+work.display = function() {
+	for(var job in this.jobs) {
 		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = substitute(HTMLworkEmployer, work.jobs[job].employer);
 		var formattedTitle = substitute(HTMLworkTitle, work.jobs[job].title);
@@ -82,7 +87,7 @@ var displayWork = function(work) {
 	}
 };
 
-displayWork(work);
+work.display();
 
 $(document).click(function(loc) {
 	console.log(loc.pageX + "  " + loc.pageY);
@@ -167,12 +172,12 @@ var education = {
 	  {
 		"title": "Web Design",
 		"school": "Udacity",
-		"dates": "2013",
+		"date": "2013",
 		"url": "https://www.udacity.com"
 	  },{
 		"title": "Statistics",
 		"school": "UMA",
-		"dates": "2013",
+		"date": "2013",
 		"url": "https://www.uma.edu"
 	  }
 	]
@@ -212,7 +217,7 @@ education.display = function() {
 		$(".education-entry:last").append(
 			  substitute(HTMLonlineTitle, course.title)
 			+ substitute(HTMLonlineSchool, course.school)
-			+ substitute(HTMLonlineDates, course.dates)
+			+ substitute(HTMLonlineDates, course.date)
 			+ substitute(HTMLonlineURL, course.url)
 			);
     }
