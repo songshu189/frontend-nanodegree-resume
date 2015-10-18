@@ -4,12 +4,6 @@ This is empty on purpose! Your code to build the resume will go here.
 var name = "Sonny Yue";
 var role = "Web developer";
 
-var formattedName = HTMLheaderName.replace("%data%", name);
-var formattedRole = HTMLheaderRole.replace("%data%", role);
-
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-
 var contactInfo = {
 	"mobile" :
 	    "(123)456-0789",
@@ -27,12 +21,6 @@ var substitute = function(html, str) {
     return html.replace("%data%", str);
 }
 
-$("#topContacts").append(substitute(HTMLmobile, contactInfo.mobile));
-$("#topContacts").append(substitute(HTMLemail, contactInfo.email));
-$("#topContacts").append(substitute(HTMLgithub, contactInfo.github));
-$("#topContacts").append(substitute(HTMLtwitter, contactInfo.twitter));
-$("#topContacts").append(substitute(HTMLlocation, contactInfo.location));
-
 var skills = ["javascript", "java", "c++", "python", "php"];
 
 var bio = {
@@ -46,16 +34,30 @@ var bio = {
 		"images/my-photo.jpg",
 };
 
-$("#header").append(substitute(HTMLbioPic, bio.biopic));
-$("#header").append(substitute(HTMLwelcomeMsg, bio.welcomeMessage));
+bio.display = function() {
+	$("#header").prepend(substitute(HTMLheaderRole, this.role));
+	$("#header").prepend(substitute(HTMLheaderName, this.name));
 
-if(bio.skills) {
-	$("#header").append(HTMLskillsStart);
+	$("#topContacts").append(substitute(HTMLmobile, this.contacts.mobile));
+	$("#topContacts").append(substitute(HTMLemail, this.contacts.email));
+	$("#topContacts").append(substitute(HTMLgithub, this.contacts.github));
+	$("#topContacts").append(substitute(HTMLtwitter, this.contacts.twitter));
+	$("#topContacts").append(substitute(HTMLlocation, this.contacts.location));
 
-	for(var i=0; i<skills.length; i++) {
-		$("#skills").append(substitute(HTMLskills, bio.skills[i]));
+	$("#header").append(substitute(HTMLbioPic, this.biopic));
+	$("#header").append(substitute(HTMLwelcomeMsg, this.welcomeMessage));
+
+	if(this.skills) {
+		$("#header").append(HTMLskillsStart);
+
+		for(var i=0; i<this.skills.length; i++) {
+			$("#skills").append(substitute(HTMLskills, this.skills[i]));
+		}
 	}
-}
+
+};
+
+bio.display();
 
 var work = {
 	"jobs": [{
