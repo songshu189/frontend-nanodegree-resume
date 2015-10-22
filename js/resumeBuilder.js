@@ -26,11 +26,14 @@ bio.display = function() {
 	$('#header').prepend(substitute(HTMLheaderRole, this.role));
 	$('#header').prepend(substitute(HTMLheaderName, this.name));
 
-	$('#topContacts').append(substitute(HTMLmobile, this.contacts.mobile));
-	$('#topContacts').append(substitute(HTMLemail, this.contacts.email));
-	$('#topContacts').append(substitute(HTMLgithub, this.contacts.github));
-	$('#topContacts').append(substitute(HTMLtwitter, this.contacts.twitter));
-	$('#topContacts').append(substitute(HTMLlocation, this.contacts.location));
+    var contacts = substitute(HTMLmobile, this.contacts.mobile)
+			+ substitute(HTMLemail, this.contacts.email)
+			+ substitute(HTMLgithub, this.contacts.github)
+			+ substitute(HTMLtwitter, this.contacts.twitter)
+			+ substitute(HTMLlocation, this.contacts.location);
+
+	$('#topContacts').append(contacts);
+	$('#footerContacts').append(contacts);
 
 	$('#header').append(substitute(HTMLbioPic, this.biopic));
 	$('#header').append(substitute(HTMLwelcomeMsg, this.welcomeMessage));
